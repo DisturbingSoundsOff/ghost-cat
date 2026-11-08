@@ -240,14 +240,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 class Monster extends Phaser.Physics.Arcade.Sprite {
 	private dir = 2; // start moving up
 	private target = new Phaser.Math.Vector2();
+	private isBlocked: (x: number, y: number, dir: number) => boolean;
 
 	constructor(
 		scene: Phaser.Scene,
 		x: number,
 		y: number,
-		private isBlocked: (x: number, y: number, dir: number) => boolean
+		isBlocked: (x: number, y: number, dir: number) => boolean
 	) {
 		super(scene, x, y, "monster");
+		this.isBlocked = isBlocked;
 		scene.add.existing(this);
 		scene.physics.add.existing(this);
 		this.setDepth(900);
